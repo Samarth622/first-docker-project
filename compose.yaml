@@ -1,0 +1,19 @@
+version: '3.9'
+name: docker-compose
+services:
+  nextjs:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: mynextapp
+    ports:
+      - 3000:3000
+    develop:
+      watch:
+        - path: ./client/package.json
+          action: rebuild
+        - path: ./client/package-lock.json
+          action: rebuild
+        - path: ./client
+          target: /app
+          action: sync
